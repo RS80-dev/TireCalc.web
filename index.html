@@ -4,247 +4,663 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TireCalc — Bike Pressure Guide</title>
-    <meta name="description" content="Calculate the perfect tire pressure for your bike — based on weight, tire width, and surface conditions.">
+    <meta name="description" content="TireCalc: Berechne den perfekten Reifendruck f&uuml;r dein Fahrrad. Basierend auf Gewicht, Reifen und Untergrund. Jetzt kostenlos im App Store.">
+    <meta name="apple-itunes-app" content="app-id=6759680543">
     <meta property="og:title" content="TireCalc — Bike Pressure Guide">
-    <meta property="og:description" content="Calculate the perfect tire pressure for your bike.">
+    <meta property="og:description" content="Berechne den perfekten Reifendruck f&uuml;r dein Fahrrad.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tirecalc.nexusrs.com">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:locale:alternate" content="en_US">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🚲%3C/text%3E%3C/svg%3E">
     <style>
+        :root {
+            --sky-500: #0EA5E9;
+            --sky-400: #38BDF8;
+            --sky-600: #0284C7;
+            --sky-700: #0369A1;
+            --hero-bg: #0D1117;
+            --hero-surface: #111827;
+            --section-bg: #FAFAF9;
+            --card-bg: #FFFFFF;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-hero: #f5f5f7;
+            --text-hero-secondary: #a1a1a6;
+            --radius-card: 20px;
+            --radius-button: 14px;
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+            --shadow-card-hover: 0 2px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.06);
+            --font-stack: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            color: #ffffff;
-            background: linear-gradient(180deg, #0D1117 0%, #111827 100%);
-            padding: 0 16px;
+            font-family: var(--font-stack);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* ─── Language Switcher ─── */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 2px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 3px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .lang-switch button {
+            font-family: var(--font-stack);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: transparent;
+            color: var(--text-hero-secondary);
+            letter-spacing: 0.02em;
+        }
+        .lang-switch button.active {
+            background: rgba(255,255,255,0.15);
+            color: var(--text-hero);
+        }
+        .lang-switch button:hover:not(.active) {
+            color: var(--text-hero);
+        }
+
+        body [lang="en"] { display: none; }
+        body.en [lang="de"] { display: none; }
+        body.en [lang="en"] { display: block; }
+        body.en span[lang="en"] { display: inline; }
+        body.en nav[lang="en"] { display: flex; }
+
+        /* ─── Hero ─── */
+        .hero {
             min-height: 100vh;
+            min-height: 100dvh;
+            background: var(--hero-bg);
             display: flex;
             flex-direction: column;
-        }
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 60px 0 40px;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            flex: 1;
+            padding: 80px 24px 60px;
+            position: relative;
+            overflow: hidden;
         }
-        .lang-switch {
-            text-align: right;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(14,165,233,0.12) 0%, rgba(14,165,233,0.03) 40%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(14,165,233,0.3), transparent);
+        }
+
+        .hero-icon {
+            position: relative;
             margin-bottom: 32px;
+            animation: fadeInScale 0.8s ease-out both;
         }
-        .lang-switch a {
-            display: inline-block;
-            padding: 6px 14px;
-            margin-left: 6px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            color: #0EA5E9;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: background 0.2s, color 0.2s;
-        }
-        .lang-switch a.active, .lang-switch a:hover {
-            background: rgba(14,165,233,0.12);
-            color: #38BDF8;
-            border-color: rgba(14,165,233,0.3);
-        }
-        .app-icon {
+
+        .hero-icon img {
             width: 128px;
             height: 128px;
             border-radius: 28px;
-            margin: 0 auto 28px;
-            box-shadow: 0 8px 40px rgba(14,165,233,0.15), 0 2px 12px rgba(0,0,0,0.4);
+            filter: drop-shadow(0 8px 32px rgba(14,165,233,0.3));
+        }
+
+        .icon-pulse {
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: 700;
+            color: var(--text-hero);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease-out 0.15s both;
+        }
+
+        .hero-tagline {
+            font-size: clamp(17px, 3vw, 21px);
+            font-weight: 400;
+            color: var(--text-hero-secondary);
+            max-width: 460px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .app-store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            color: #111;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-button);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.45s both;
+            position: relative;
             overflow: hidden;
         }
-        .app-icon img {
+
+        .app-store-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            display: block;
+            background: linear-gradient(90deg, transparent, rgba(14,165,233,0.08), transparent);
+            transition: left 0.5s ease;
         }
-        h1 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-        .subtitle {
-            font-size: 18px;
-            color: #9CA3AF;
-            margin-bottom: 40px;
-            max-width: 520px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .features {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 44px;
-        }
-        .feature {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 20px;
-            flex: 1;
-            min-width: 180px;
-            max-width: 220px;
-            transition: border-color 0.2s, background 0.2s;
-        }
-        .feature:hover {
-            background: rgba(14,165,233,0.04);
-            border-color: rgba(14,165,233,0.15);
-        }
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .feature-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #E5E7EB;
-        }
-        .feature-desc {
-            font-size: 13px;
-            color: #71717A;
-        }
-        .app-store-badge {
-            display: inline-block;
-            margin-bottom: 44px;
-            transition: opacity 0.2s;
-        }
+
         .app-store-badge:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
-        .app-store-badge img {
-            height: 54px;
+
+        .app-store-badge:hover::before {
+            left: 100%;
         }
-        .legal {
+
+        .app-store-badge .apple-logo {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .app-store-badge .badge-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .app-store-badge .badge-small {
+            font-size: 10px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+        }
+
+        .app-store-badge .badge-large {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeInUp 0.8s ease-out 0.8s both, bounce 2s ease-in-out 1.6s infinite;
+        }
+
+        .hero-scroll-hint svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-hero-secondary);
+            opacity: 0.4;
+        }
+
+        /* ─── Features ─── */
+        .features {
+            background: var(--section-bg);
+            padding: 100px 24px;
+        }
+
+        .features-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
             font-size: 14px;
-            color: #71717A;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sky-500);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            margin-bottom: 56px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: 36px 28px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.35s ease;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-4px);
+        }
+
+        .feature-card.visible:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon.calc {
+            background: linear-gradient(135deg, rgba(14,165,233,0.12), rgba(2,132,199,0.08));
+        }
+        .feature-icon.bike {
+            background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(22,163,74,0.08));
+        }
+        .feature-icon.temp {
+            background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.08));
+        }
+
+        .feature-card h3 {
+            font-size: 19px;
+            font-weight: 650;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Pro Teaser ─── */
+        .pro-teaser {
+            background: linear-gradient(135deg, var(--sky-600), var(--sky-500), var(--sky-400));
+            padding: 56px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pro-teaser::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                120deg,
+                transparent,
+                transparent 40px,
+                rgba(255,255,255,0.02) 40px,
+                rgba(255,255,255,0.02) 80px
+            );
+        }
+
+        .pro-teaser-inner {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pro-teaser .pro-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.15);
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .pro-teaser h2 {
+            font-size: clamp(22px, 4vw, 28px);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
             margin-bottom: 8px;
         }
-        .legal a {
-            color: #0EA5E9;
-            text-decoration: none;
-            transition: color 0.2s;
+
+        .pro-teaser .pro-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 400;
         }
-        .legal a:hover {
-            color: #38BDF8;
-        }
+
+        /* ─── Footer ─── */
         footer {
+            background: var(--hero-bg);
+            padding: 48px 24px;
             text-align: center;
-            padding: 24px 16px;
-            font-size: 13px;
-            color: #71717A;
-            border-top: 1px solid rgba(255,255,255,0.06);
         }
-        .lang { display: none; }
-        .lang.active { display: block; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-hero-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-hero);
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 20px auto;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .footer-copy a {
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+        }
+
+        .footer-copy a:hover {
+            color: var(--text-hero-secondary);
+        }
+
+        /* ─── Animations ─── */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { filter: drop-shadow(0 8px 32px rgba(14,165,233,0.3)); }
+            50% { filter: drop-shadow(0 8px 40px rgba(14,165,233,0.5)); }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .feature-card {
+                padding: 28px 24px;
+            }
+
+            .hero {
+                padding: 60px 20px 48px;
+            }
+
+            .features {
+                padding: 72px 20px;
+            }
+
+            .lang-switch {
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-icon img {
+                width: 104px;
+                height: 104px;
+                border-radius: 24px;
+            }
+
+            .hero-title {
+                margin-bottom: 12px;
+            }
+
+            .hero-tagline {
+                margin-bottom: 32px;
+            }
+        }
+
+        /* ─── Reduced Motion ─── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .feature-card {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="lang-switch">
-            <a href="#" id="btn-de" class="active" onclick="switchLang('de'); return false;">Deutsch</a>
-            <a href="#" id="btn-en" onclick="switchLang('en'); return false;">English</a>
-        </div>
 
-        <div class="app-icon">
-            <img src="app-icon.png" alt="TireCalc App Icon" width="128" height="128">
-        </div>
-
-        <!-- DEUTSCH -->
-        <div id="lang-de" class="lang active">
-            <h1>TireCalc</h1>
-            <p class="subtitle">Berechne den perfekten Reifendruck f&uuml;r dein Fahrrad &mdash; basierend auf Gewicht, Reifen und Untergrund.</p>
-
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">&#9881;</div>
-                    <div class="feature-title">Pr&auml;zise Berechnung</div>
-                    <div class="feature-desc">Berto/Adams-Formel mit Korrekturfaktoren</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">&#128690;</div>
-                    <div class="feature-title">Alle Radtypen</div>
-                    <div class="feature-desc">Road, Gravel, MTB &amp; Fat Bike</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">&#127777;</div>
-                    <div class="feature-title">Temperatur</div>
-                    <div class="feature-desc">Kompensation f&uuml;r Aufpump- vs. Fahrtemperatur</div>
-                </div>
-            </div>
-
-            <a class="app-store-badge" href="https://apps.apple.com/app/id6759680543">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/de-de?size=250x83" alt="Im App Store laden">
-            </a>
-
-            <p class="legal">
-                <a href="/privacy.html">Datenschutz</a> &middot;
-                <a href="/terms.html">Nutzungsbedingungen</a> &middot;
-                <a href="mailto:support@nexusrs.com">Kontakt</a>
-            </p>
-        </div>
-
-        <!-- ENGLISH -->
-        <div id="lang-en" class="lang">
-            <h1>TireCalc</h1>
-            <p class="subtitle">Calculate the perfect tire pressure for your bike &mdash; based on weight, tire width, and surface conditions.</p>
-
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">&#9881;</div>
-                    <div class="feature-title">Precise Calculation</div>
-                    <div class="feature-desc">Berto/Adams formula with correction factors</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">&#128690;</div>
-                    <div class="feature-title">All Bike Types</div>
-                    <div class="feature-desc">Road, Gravel, MTB &amp; Fat Bike</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">&#127777;</div>
-                    <div class="feature-title">Temperature</div>
-                    <div class="feature-desc">Compensation for pump vs. ride temperature</div>
-                </div>
-            </div>
-
-            <a class="app-store-badge" href="https://apps.apple.com/app/id6759680543">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83" alt="Download on the App Store">
-            </a>
-
-            <p class="legal">
-                <a href="/privacy.html">Privacy Policy</a> &middot;
-                <a href="/terms.html">Terms of Use</a> &middot;
-                <a href="mailto:support@nexusrs.com">Contact</a>
-            </p>
-        </div>
+    <!-- Language Switcher -->
+    <div class="lang-switch" role="tablist" aria-label="Sprache / Language">
+        <button id="btn-de" class="active" role="tab" aria-selected="true" onclick="switchLang('de')">Deutsch</button>
+        <button id="btn-en" role="tab" aria-selected="false" onclick="switchLang('en')">English</button>
     </div>
 
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-icon">
+            <img class="icon-pulse" src="app-icon.png" alt="TireCalc App Icon" width="128" height="128">
+        </div>
+
+        <h1 class="hero-title">TireCalc</h1>
+
+        <p class="hero-tagline" lang="de">Berechne den perfekten Reifendruck<br>f&uuml;r dein Fahrrad.</p>
+        <p class="hero-tagline" lang="en">Calculate the perfect tire pressure<br>for your bike.</p>
+
+        <a href="https://apps.apple.com/app/id6759680543" class="app-store-badge" aria-label="Download on the App Store">
+            <span class="apple-logo" aria-hidden="true">&#63743;</span>
+            <span class="badge-text">
+                <span class="badge-small" lang="de">Laden im</span>
+                <span class="badge-small" lang="en">Download on the</span>
+                <span class="badge-large">App Store</span>
+            </span>
+        </a>
+
+        <div class="hero-scroll-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-inner">
+            <p class="section-label" lang="de">Funktionen</p>
+            <p class="section-label" lang="en">Features</p>
+
+            <h2 class="section-title" lang="de">Pr&auml;zise berechnet.<br>Perfekt abgestimmt.</h2>
+            <h2 class="section-title" lang="en">Precisely calculated.<br>Perfectly tuned.</h2>
+
+            <div class="features-grid">
+                <!-- Card 1: Calculation -->
+                <div class="feature-card" style="transition-delay: 0s;">
+                    <div class="feature-icon calc" aria-hidden="true">&#9881;</div>
+                    <div lang="de">
+                        <h3>Pr&auml;zise Berechnung</h3>
+                        <p>Berto/Adams-Formel mit Korrekturfaktoren f&uuml;r Reifentyp, Untergrund und Bedingungen. Inklusive Sicherheitsgrenzen und Hookless-Erkennung.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>Precise Calculation</h3>
+                        <p>Berto/Adams formula with correction factors for tire type, surface, and conditions. Including safety limits and hookless rim detection.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Bike Types -->
+                <div class="feature-card" style="transition-delay: 0.1s;">
+                    <div class="feature-icon bike" aria-hidden="true">&#128690;</div>
+                    <div lang="de">
+                        <h3>Alle Radtypen</h3>
+                        <p>Road, Gravel, MTB &amp; Fat Bike mit optimaler Gewichtsverteilung. Speichere unbegrenzt Bike-Profile f&uuml;r schnellen Zugriff.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>All Bike Types</h3>
+                        <p>Road, Gravel, MTB &amp; Fat Bike with optimal weight distribution. Save unlimited bike profiles for quick access.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Temperature -->
+                <div class="feature-card" style="transition-delay: 0.2s;">
+                    <div class="feature-icon temp" aria-hidden="true">&#127777;</div>
+                    <div lang="de">
+                        <h3>Temperatur&shy;kompensation</h3>
+                        <p>Berechne den korrekten Aufpumpdruck basierend auf Pump- und Fahrtemperatur. Physikalisch exakt nach dem idealen Gasgesetz.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>Temperature Compensation</h3>
+                        <p>Calculate the correct inflation pressure based on pump and ride temperature. Physically accurate using the ideal gas law.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pro Teaser -->
+    <section class="pro-teaser">
+        <div class="pro-teaser-inner">
+            <span class="pro-label">Pro</span>
+            <h2 lang="de">Kostenlos mit allen Grundfunktionen</h2>
+            <h2 lang="en">Free with all core features</h2>
+            <p class="pro-sub" lang="de">Temperaturkompensation, unbegrenzte Profile &amp; werbefrei &mdash; einmalig 2,99&nbsp;&euro;</p>
+            <p class="pro-sub" lang="en">Temperature compensation, unlimited profiles &amp; ad-free &mdash; one-time &euro;2.99</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        &copy; 2026 Rene Scheucher &ndash; Nexus RS
+        <nav class="footer-links" lang="de">
+            <a href="privacy.html">Datenschutzerkl&auml;rung</a>
+            <a href="terms.html">Nutzungsbedingungen</a>
+            <a href="mailto:support@nexusrs.com">Kontakt</a>
+        </nav>
+        <nav class="footer-links" lang="en">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="mailto:support@nexusrs.com">Contact</a>
+        </nav>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">&copy; 2026 <a href="https://nexusrs.com">Nexus RS</a></p>
     </footer>
 
     <script>
         function switchLang(lang) {
-            document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.lang-switch a').forEach(el => el.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            document.getElementById('btn-' + lang).classList.add('active');
+            document.body.classList.toggle('en', lang === 'en');
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-de').setAttribute('aria-selected', lang === 'de');
+            document.getElementById('btn-en').setAttribute('aria-selected', lang === 'en');
             document.documentElement.lang = lang;
         }
 
-        // Auto-detect language
-        const userLang = navigator.language || navigator.userLanguage;
-        if (userLang && !userLang.startsWith('de')) {
+        // Scroll-triggered fade-in for feature cards
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.feature-card').forEach(function(card) {
+            observer.observe(card);
+        });
+
+        // Auto-detect browser language
+        if (navigator.language && navigator.language.startsWith('en')) {
             switchLang('en');
         }
     </script>
+
 </body>
 </html>
