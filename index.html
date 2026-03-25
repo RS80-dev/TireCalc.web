@@ -14,8 +14,8 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.7;
-            color: #1d1d1f;
-            background: #f5f5f7;
+            color: #ffffff;
+            background: linear-gradient(180deg, #0D1117 0%, #111827 100%);
             padding: 0 16px;
             min-height: 100vh;
             display: flex;
@@ -40,94 +40,108 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            color: #0066cc;
-            background: #fff;
-            border: 1px solid #d2d2d7;
-            transition: background 0.2s;
+            color: #0EA5E9;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.2s, color 0.2s;
         }
         .lang-switch a.active, .lang-switch a:hover {
-            background: #0066cc;
-            color: #fff;
-            border-color: #0066cc;
+            background: rgba(14,165,233,0.12);
+            color: #38BDF8;
+            border-color: rgba(14,165,233,0.3);
         }
         .app-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 27px;
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            margin: 0 auto 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            margin: 0 auto 28px;
+            box-shadow: 0 8px 40px rgba(14,165,233,0.15), 0 2px 12px rgba(0,0,0,0.4);
+            overflow: hidden;
         }
-        .app-icon svg {
-            width: 64px;
-            height: 64px;
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
         h1 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             margin-bottom: 8px;
+            color: #ffffff;
         }
         .subtitle {
             font-size: 18px;
-            color: #86868b;
-            margin-bottom: 32px;
+            color: #9CA3AF;
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .features {
             display: flex;
             gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 40px;
+            margin-bottom: 44px;
         }
         .feature {
-            background: #fff;
-            border: 1px solid #d2d2d7;
-            border-radius: 12px;
-            padding: 16px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 20px;
             flex: 1;
             min-width: 180px;
             max-width: 220px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .feature:hover {
+            background: rgba(14,165,233,0.04);
+            border-color: rgba(14,165,233,0.15);
         }
         .feature-icon {
             font-size: 28px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .feature-title {
             font-size: 15px;
             font-weight: 600;
             margin-bottom: 4px;
+            color: #E5E7EB;
         }
         .feature-desc {
             font-size: 13px;
-            color: #86868b;
+            color: #71717A;
         }
         .app-store-badge {
             display: inline-block;
-            margin-bottom: 40px;
+            margin-bottom: 44px;
+            transition: opacity 0.2s;
+        }
+        .app-store-badge:hover {
+            opacity: 0.8;
         }
         .app-store-badge img {
             height: 54px;
         }
         .legal {
             font-size: 14px;
-            color: #86868b;
+            color: #71717A;
             margin-bottom: 8px;
         }
         .legal a {
-            color: #0066cc;
+            color: #0EA5E9;
             text-decoration: none;
+            transition: color 0.2s;
         }
         .legal a:hover {
-            text-decoration: underline;
+            color: #38BDF8;
         }
         footer {
             text-align: center;
             padding: 24px 16px;
             font-size: 13px;
-            color: #86868b;
+            color: #71717A;
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
         .lang { display: none; }
         .lang.active { display: block; }
@@ -141,10 +155,7 @@
         </div>
 
         <div class="app-icon">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="32" cy="32" r="26" stroke="#4cc9f0" stroke-width="4" stroke-linecap="round" stroke-dasharray="120 44"/>
-                <text x="32" y="37" text-anchor="middle" fill="#4cc9f0" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">PSI</text>
-            </svg>
+            <img src="app-icon.png" alt="TireCalc App Icon" width="128" height="128">
         </div>
 
         <!-- DEUTSCH -->
@@ -171,7 +182,7 @@
             </div>
 
             <a class="app-store-badge" href="https://apps.apple.com/app/id6759680543">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/de-de?size=250x83" alt="Im App Store laden">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/de-de?size=250x83" alt="Im App Store laden">
             </a>
 
             <p class="legal">
@@ -205,7 +216,7 @@
             </div>
 
             <a class="app-store-badge" href="https://apps.apple.com/app/id6759680543">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83" alt="Download on the App Store">
             </a>
 
             <p class="legal">
