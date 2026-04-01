@@ -10,9 +10,17 @@
     <meta property="og:description" content="Berechne den perfekten Reifendruck f&uuml;r dein Fahrrad.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tirecalc.nexusrs.com">
+    <meta property="og:image" content="https://tirecalc.nexusrs.com/og-image.png">
     <meta property="og:locale" content="de_DE">
     <meta property="og:locale:alternate" content="en_US">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🚲%3C/text%3E%3C/svg%3E">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TireCalc &mdash; Bike Pressure Guide">
+    <meta name="twitter:description" content="Berechne den perfekten Reifendruck f&uuml;r dein Fahrrad.">
+    <meta name="twitter:image" content="https://tirecalc.nexusrs.com/og-image.png">
+    <meta name="keywords" content="Reifendruck Rechner, Reifendruck Fahrrad, tire pressure calculator bike, Rennrad, Gravel, MTB, Fat Bike, PSI, bar, tubeless, hookless">
+    <link rel="canonical" href="https://tirecalc.nexusrs.com">
+    <link rel="icon" type="image/png" href="app-icon.png">
+    <link rel="apple-touch-icon" href="app-icon.png">
     <style>
         :root {
             --sky-500: #0EA5E9;
@@ -87,6 +95,8 @@
         body.en [lang="en"] { display: block; }
         body.en span[lang="en"] { display: inline; }
         body.en nav[lang="en"] { display: flex; }
+        body.en .screenshots-track[lang="en"] { display: flex; }
+        body.en .app-store-badge img[lang="en"] { display: inline; }
 
         /* ─── Hero ─── */
         .hero {
@@ -164,66 +174,18 @@
         }
 
         .app-store-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #fff;
-            color: #111;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: var(--radius-button);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            transition: all 0.3s ease;
+            display: inline-block;
+            transition: transform 0.3s ease;
             animation: fadeInUp 0.8s ease-out 0.45s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-store-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(14,165,233,0.08), transparent);
-            transition: left 0.5s ease;
         }
 
         .app-store-badge:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
 
-        .app-store-badge:hover::before {
-            left: 100%;
-        }
-
-        .app-store-badge .apple-logo {
-            font-size: 22px;
-            line-height: 1;
-        }
-
-        .app-store-badge .badge-text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            line-height: 1.2;
-        }
-
-        .app-store-badge .badge-small {
-            font-size: 10px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.7;
-        }
-
-        .app-store-badge .badge-large {
-            font-size: 17px;
-            font-weight: 600;
+        .app-store-badge img {
+            height: 54px;
+            width: auto;
         }
 
         .hero-scroll-hint {
@@ -239,6 +201,79 @@
             height: 24px;
             stroke: var(--text-hero-secondary);
             opacity: 0.4;
+        }
+
+        /* ─── Screenshots ─── */
+        .screenshots {
+            background: var(--hero-bg);
+            padding: 64px 24px 80px;
+            overflow: hidden;
+        }
+
+        .screenshots-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sky-500);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .screenshots-track {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshots-track img {
+            height: 520px;
+            width: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            transition: transform 0.35s ease;
+            flex-shrink: 0;
+        }
+
+        .screenshots-track img:hover {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+            .screenshots {
+                padding: 48px 0 64px;
+            }
+
+            .screenshots-label {
+                padding: 0 24px;
+            }
+
+            .screenshots-track {
+                justify-content: flex-start;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 24px;
+                gap: 16px;
+                scrollbar-width: none;
+            }
+
+            .screenshots-track::-webkit-scrollbar {
+                display: none;
+            }
+
+            .screenshots-track img {
+                height: 440px;
+                scroll-snap-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .screenshots-track img {
+                height: 380px;
+            }
         }
 
         /* ─── Features ─── */
@@ -537,19 +572,33 @@
         <p class="hero-tagline" lang="de">Berechne den perfekten Reifendruck<br>f&uuml;r dein Fahrrad.</p>
         <p class="hero-tagline" lang="en">Calculate the perfect tire pressure<br>for your bike.</p>
 
-        <a href="https://apps.apple.com/app/id6759680543" class="app-store-badge" aria-label="Download on the App Store">
-            <span class="apple-logo" aria-hidden="true">&#63743;</span>
-            <span class="badge-text">
-                <span class="badge-small" lang="de">Laden im</span>
-                <span class="badge-small" lang="en">Download on the</span>
-                <span class="badge-large">App Store</span>
-            </span>
+        <a href="https://apps.apple.com/app/id6759680543" class="app-store-badge">
+            <img lang="de" src="badge-de-white.svg" alt="Laden im App Store">
+            <img lang="en" src="badge-en-white.svg" alt="Download on the App Store">
         </a>
 
         <div class="hero-scroll-hint" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
             </svg>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots">
+        <p class="screenshots-label" lang="de">So sieht's aus</p>
+        <p class="screenshots-label" lang="en">See it in action</p>
+        <div class="screenshots-track" lang="de">
+            <img src="screenshots/de/01.png" alt="TireCalc Hauptbildschirm mit Druckberechnung" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/03.png" alt="Bedingungen: Untergrund, N&auml;sse und Temperaturkompensation" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/04.png" alt="Sicherheitswarnungen bei Hookless-Felgen" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/02.png" alt="Verschiedene Radtypen: Road, Gravel, MTB, Fat Bike" width="552" height="1200" loading="lazy">
+        </div>
+        <div class="screenshots-track" lang="en">
+            <img src="screenshots/en/01.png" alt="TireCalc main screen with pressure calculation" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/03.png" alt="Conditions: surface, wet and temperature compensation" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/04.png" alt="Safety warnings for hookless rims" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/02.png" alt="Different bike types: Road, Gravel, MTB, Fat Bike" width="552" height="1200" loading="lazy">
         </div>
     </section>
 
@@ -609,10 +658,10 @@
     <section class="pro-teaser">
         <div class="pro-teaser-inner">
             <span class="pro-label">Pro</span>
-            <h2 lang="de">Kostenlos mit allen Grundfunktionen</h2>
-            <h2 lang="en">Free with all core features</h2>
-            <p class="pro-sub" lang="de">Temperaturkompensation, unbegrenzte Profile &amp; werbefrei &mdash; einmalig 2,99&nbsp;&euro;</p>
-            <p class="pro-sub" lang="en">Temperature compensation, unlimited profiles &amp; ad-free &mdash; one-time &euro;2.99</p>
+            <h2 lang="de">Alle Features. 7&nbsp;Tage kostenlos testen.</h2>
+            <h2 lang="en">All features. 7&nbsp;days free trial.</h2>
+            <p class="pro-sub" lang="de">Alle Radtypen, Temperaturkompensation, unbegrenzte Profile &amp; mehr &mdash; danach nur 2,99&nbsp;&euro;/Jahr</p>
+            <p class="pro-sub" lang="en">All bike types, temperature compensation, unlimited profiles &amp; more &mdash; then just &euro;2.99/year</p>
         </div>
     </section>
 
@@ -631,6 +680,22 @@
         <div class="footer-divider"></div>
         <p class="footer-copy">&copy; 2026 <a href="https://nexusrs.com">Nexus RS</a></p>
     </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TireCalc",
+        "description": "Calculate the perfect tire pressure for your bike. Road, Gravel, MTB & Fat Bike.",
+        "operatingSystem": "iOS 17+",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        }
+    }
+    </script>
 
     <script>
         function switchLang(lang) {
