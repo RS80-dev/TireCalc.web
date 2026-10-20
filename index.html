@@ -357,6 +357,15 @@
         .feature-icon.temp {
             background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.08));
         }
+        .feature-icon.widget {
+            background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(147,51,234,0.08));
+        }
+        .feature-icon.reminder {
+            background: linear-gradient(135deg, rgba(244,63,94,0.12), rgba(225,29,72,0.08));
+        }
+        .feature-icon.tuning {
+            background: linear-gradient(135deg, rgba(20,184,166,0.12), rgba(13,148,136,0.08));
+        }
 
         .feature-card h3 {
             font-size: 19px;
@@ -589,16 +598,18 @@
         <p class="screenshots-label" lang="de">So sieht's aus</p>
         <p class="screenshots-label" lang="en">See it in action</p>
         <div class="screenshots-track" lang="de">
-            <img src="screenshots/de/01.png" alt="TireCalc Hauptbildschirm mit Druckberechnung" width="552" height="1200" loading="lazy">
-            <img src="screenshots/de/03.png" alt="Bedingungen: Untergrund, N&auml;sse und Temperaturkompensation" width="552" height="1200" loading="lazy">
-            <img src="screenshots/de/04.png" alt="Sicherheitswarnungen bei Hookless-Felgen" width="552" height="1200" loading="lazy">
-            <img src="screenshots/de/02.png" alt="Verschiedene Radtypen: Road, Gravel, MTB, Fat Bike" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/01.png" alt="TireCalc Hauptbildschirm mit Druckberechnung und Feintuning" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/02.png" alt="Widget mit Reifendruck am Home- und Sperrbildschirm" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/03.png" alt="Druckcheck-Erinnerung in den Einstellungen" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/04.png" alt="Bedingungen: Untergrund, N&auml;sse und Temperaturkompensation" width="552" height="1200" loading="lazy">
+            <img src="screenshots/de/05.png" alt="Sicherheitswarnungen bei Hookless-Felgen" width="552" height="1200" loading="lazy">
         </div>
         <div class="screenshots-track" lang="en">
-            <img src="screenshots/en/01.png" alt="TireCalc main screen with pressure calculation" width="552" height="1200" loading="lazy">
-            <img src="screenshots/en/03.png" alt="Conditions: surface, wet and temperature compensation" width="552" height="1200" loading="lazy">
-            <img src="screenshots/en/04.png" alt="Safety warnings for hookless rims" width="552" height="1200" loading="lazy">
-            <img src="screenshots/en/02.png" alt="Different bike types: Road, Gravel, MTB, Fat Bike" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/01.png" alt="TireCalc main screen with pressure calculation and fine-tuning" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/02.png" alt="Widget with tire pressure on the Home and Lock Screen" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/03.png" alt="Pressure check reminder in settings" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/04.png" alt="Conditions: surface, wet and temperature compensation" width="552" height="1200" loading="lazy">
+            <img src="screenshots/en/05.png" alt="Safety warnings for hookless rims" width="552" height="1200" loading="lazy">
         </div>
     </section>
 
@@ -650,6 +661,45 @@
                         <p>Calculate the correct inflation pressure based on pump and ride temperature. Physically accurate using the ideal gas law.</p>
                     </div>
                 </div>
+
+                <!-- Card 4: Widget -->
+                <div class="feature-card" style="transition-delay: 0.3s;">
+                    <div class="feature-icon widget" aria-hidden="true">&#128241;</div>
+                    <div lang="de">
+                        <h3>Widget</h3>
+                        <p>Dein empfohlener Druck vorne und hinten direkt am Home- und Sperrbildschirm &mdash; ohne die App zu &ouml;ffnen.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>Widget</h3>
+                        <p>Your recommended front and rear pressure right on the Home and Lock Screen &mdash; without opening the app.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Reminder -->
+                <div class="feature-card" style="transition-delay: 0.4s;">
+                    <div class="feature-icon reminder" aria-hidden="true">&#128276;</div>
+                    <div lang="de">
+                        <h3>Druckcheck-Erinnerung</h3>
+                        <p>Lass dich w&ouml;chentlich, alle zwei Wochen oder monatlich ans Reifenpr&uuml;fen erinnern &mdash; mit saisonalen Tipps.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>Pressure Check Reminder</h3>
+                        <p>Get reminded weekly, every two weeks, or monthly to check your tires &mdash; with seasonal tips.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Fine-tuning -->
+                <div class="feature-card" style="transition-delay: 0.5s;">
+                    <div class="feature-icon tuning" aria-hidden="true">&#127898;</div>
+                    <div lang="de">
+                        <h3>Feintuning pro Profil</h3>
+                        <p>F&uuml;hlt sich der Druck zu hart oder zu weich an? Passe ihn vorne und hinten getrennt an &mdash; pro Rad gespeichert.</p>
+                    </div>
+                    <div lang="en">
+                        <h3>Per-Profile Fine-Tuning</h3>
+                        <p>Does the pressure feel too firm or too soft? Adjust front and rear separately &mdash; saved per bike.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -660,8 +710,8 @@
             <span class="pro-label">Pro</span>
             <h2 lang="de">Alle Features. 7&nbsp;Tage kostenlos testen.</h2>
             <h2 lang="en">All features. 7&nbsp;days free trial.</h2>
-            <p class="pro-sub" lang="de">Alle Radtypen, Temperaturkompensation, unbegrenzte Profile &amp; mehr &mdash; danach nur 2,99&nbsp;&euro;/Jahr</p>
-            <p class="pro-sub" lang="en">All bike types, temperature compensation, unlimited profiles &amp; more &mdash; then just &euro;2.99/year</p>
+            <p class="pro-sub" lang="de">Alle Radtypen, Widget, Feintuning, Temperaturkompensation, unbegrenzte Profile &amp; mehr &mdash; danach nur 2,99&nbsp;&euro;/Jahr</p>
+            <p class="pro-sub" lang="en">All bike types, widget, fine-tuning, temperature compensation, unlimited profiles &amp; more &mdash; then just &euro;2.99/year</p>
         </div>
     </section>
 
